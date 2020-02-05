@@ -9,10 +9,17 @@ Husky.js like, but pure in golang
 
 ## Usage
 
+install
+
 ```
 go install github.com/go-courier/husky
 ```
 
+then run
+
+```
+husky init
+```
 
 ## Configuration `.husky.yaml`
 
@@ -20,6 +27,7 @@ go install github.com/go-courier/husky
 hooks:
   # hook scripts
   pre-commit:
+    - go vet ./...
     - husky lint staged
   commit-msg:
     - husky lint commit
@@ -27,12 +35,23 @@ hooks:
 # list staged files do some pre-process and git add
 lint-staged:
   "*.go":
-    - go fmt
-    - go vet
+    - gofmt -l -w
 
-# only support https://www.conventionalcommits.org/en/v1.0.0-beta.2/
+# commit msg rule only support conventionalcommits
 lint-commit:
   # could check if this exists
   # regexp
   email: "^(.+@gmail.com|.+@qq.com)$"
+```
+
+Commit msg rule follow <https://www.conventionalcommits.org/en/v1.0.0-beta.2/>
+
+optional `[rel]` could be before `header` for jira card number
+
+```
+type(scope?): [rel?] header
+
+body?
+
+footer?
 ```
