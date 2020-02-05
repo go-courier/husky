@@ -8,25 +8,21 @@ import (
 )
 
 func init() {
-	CmdRoot.AddCommand(cmdLint)
-
-	cmdLint.AddCommand(cmdLintCommit)
-	cmdLint.AddCommand(cmdLintStaged)
-}
-
-var cmdLint = &cobra.Command{
-	Use: "lint",
+	CmdRoot.AddCommand(cmdLintCommit)
+	CmdRoot.AddCommand(cmdLintStaged)
 }
 
 var cmdLintCommit = &cobra.Command{
-	Use: "commit",
+	Use:   "lint-commit",
+	Short: "lint commit msg",
 	Run: func(cmd *cobra.Command, args []string) {
 		catch(theHusky.RunLintCommit())
 	},
 }
 
 var cmdLintStaged = &cobra.Command{
-	Use: "staged",
+	Use:   "lint-staged",
+	Short: "lint stated files",
 	Run: func(cmd *cobra.Command, args []string) {
 		catch(theHusky.RunLintStated())
 	},

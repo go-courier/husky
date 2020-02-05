@@ -1,9 +1,20 @@
+scripts:
+  lint:
+    - husky run pre-commit
+    - husky run commit-msg
+  test:
+    - go test -v -race ./...
+  cover:
+    - go test -v -race -coverprofile=coverage.txt -covermode=atomic ./...
+  install:
+    - go install github.com/go-courier/husky
+
 hooks:
   pre-commit:
     - go vet ./...
-    - husky lint staged
+    - husky lint-staged
   commit-msg:
-    - husky lint commit
+    - husky lint-commit
 
 lint-staged:
   "*.go":

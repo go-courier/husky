@@ -51,6 +51,7 @@ func NewSpec() *Spec {
 }
 
 type Spec struct {
+	Scripts    map[string][]string   `yaml:"scripts,omitempty"`
 	Hooks      map[string][]string   `yaml:"hooks,omitempty"`
 	LintStaged lintstaged.LintStaged `yaml:"lint-staged,omitempty"`
 	LintCommit lintcommit.LintCommit `yaml:"lint-commit,omitempty"`

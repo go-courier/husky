@@ -11,6 +11,7 @@ import (
 
 func init() {
 	CmdRoot.AddCommand(cmdInit)
+	Init(gitRoot)
 }
 
 var cmdInit = &cobra.Command{
@@ -27,7 +28,7 @@ func Init(root string) {
 	for _, githook := range githooks {
 		ioutil.WriteFile(path.Join(root, ".git/hooks", githook), []byte(`#!/bin/sh
 
-husky run $(basename "$0") $*
+husky hook $(basename "$0") $*
 `), os.ModePerm)
 	}
 }

@@ -15,13 +15,13 @@ func init() {
 
 var cmdRun = &cobra.Command{
 	Use:   "run",
-	Short: "run hook <hookname>",
+	Short: "run script",
 	Run: func(cmd *cobra.Command, args []string) {
 		if len(args) > 0 {
-			hook := args[0]
+			scriptName := args[0]
 
-			if ss, ok := theHusky.Hooks[hook]; ok {
-				fmtx.Fprintln(os.Stdout, color.YellowString(hook))
+			if ss, ok := theHusky.Scripts[scriptName]; ok {
+				fmtx.Fprintln(os.Stdout, color.YellowString(scriptName))
 				catch(scripts.RunScripts(ss))
 			}
 		}
