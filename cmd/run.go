@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"os"
+	"strings"
 
 	"github.com/fatih/color"
 	"github.com/go-courier/husky/husky/fmtx"
@@ -9,21 +10,28 @@ import (
 	"github.com/spf13/cobra"
 )
 
-func init() {
-	CmdRoot.AddCommand(cmdRun)
-}
-
 var cmdRun = &cobra.Command{
 	Use:   "run",
 	Short: "run script",
-	Run: func(cmd *cobra.Command, args []string) {
-		if len(args) > 0 {
-			scriptName := args[0]
+}
 
-			if ss, ok := theHusky.Scripts[scriptName]; ok {
-				fmtx.Fprintln(os.Stdout, color.YellowString(scriptName))
+func init() {
+	CmdRoot.AddCommand(cmdRun)
+
+	for name := range theHusky.Scripts {
+		n := name
+		ss := theHusky.Scripts[n]
+
+		c := &cobra.Command{
+			Use:   n,
+			Short: strings.Join(ss, " && "),
+			Run: func(cmd *cobra.Command, args []string) {
+				fmtx.Fprintln(os.Stdout, color.YellowString(n))
 				catch(scripts.RunScripts(ss))
-			}
+			},
 		}
-	},
+
+		cmdRun.AddCommand(c)
+		CmdRoot.AddCommand(c)
+	}
 }

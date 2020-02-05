@@ -9,23 +9,21 @@ import (
 	"github.com/spf13/cobra"
 )
 
+func init() {
+	CmdRoot.AddCommand(cmdHook)
+}
+
 var cmdHook = &cobra.Command{
 	Use:   "hook",
 	Short: "run hook <hookname>",
-}
+	Run: func(cmd *cobra.Command, args []string) {
+		if len(args) > 0 {
+			hook := args[0]
 
-func init() {
-	CmdRoot.AddCommand(cmdHook)
-
-	for hook := range theHusky.Hooks {
-		ss := theHusky.Hooks[hook]
-
-		cmdHook.AddCommand(&cobra.Command{
-			Use: hook,
-			Run: func(cmd *cobra.Command, args []string) {
+			if ss, ok := theHusky.Hooks[hook]; ok {
 				fmtx.Fprintln(os.Stdout, color.YellowString(hook))
 				catch(scripts.RunScripts(ss))
-			},
-		})
-	}
+			}
+		}
+	},
 }

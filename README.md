@@ -15,15 +15,14 @@ install
 go install github.com/go-courier/husky
 ```
 
-then run
-
-```
-husky init
-```
-
 ## Configuration `.husky.yaml`
 
 ```yaml
+## custom scripts
+scripts:
+  run: 
+    - go run .
+
 hooks:
   # hook scripts
   pre-commit:

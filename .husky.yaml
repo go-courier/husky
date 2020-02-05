@@ -1,13 +1,13 @@
 scripts:
   lint:
-    - husky run pre-commit
-    - husky run commit-msg
+    - husky hook pre-commit
+    - husky hook commit-msg
   test:
     - go test -v -race ./...
   cover:
     - go test -v -race -coverprofile=coverage.txt -covermode=atomic ./...
   install:
-    - go install github.com/go-courier/husky
+    - go install -v
 
 hooks:
   pre-commit:
