@@ -27,9 +27,9 @@ hooks:
   # hook scripts
   pre-commit:
     - go vet ./...
-    - husky lint staged
+    - husky lint-staged
   commit-msg:
-    - husky lint commit
+    - husky lint-commit
   
 # list staged files do some pre-process and git add
 lint-staged:
