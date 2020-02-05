@@ -8,5 +8,5 @@ require (
 	github.com/gobwas/glob v0.2.3
 	github.com/onsi/gomega v1.9.0
 	github.com/spf13/cobra v0.0.5
-	gopkg.in/yaml.v2 v2.2.4
+	gopkg.in/yaml.v2 v2.2.8
 )
