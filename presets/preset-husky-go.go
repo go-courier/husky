@@ -1,3 +1,8 @@
+package presets
+
+func init() {
+	Register("husky-go", Preset{
+		".husky.yaml": []byte(`
 scripts:
   lint:
     - husky hook pre-commit
@@ -22,3 +27,6 @@ lint-staged:
 
 lint-commit:
   email: "^(.+@gmail.com|.+@qq.com)$"
+`),
+	})
+}

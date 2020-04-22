@@ -1,7 +1,6 @@
 # Husky
 
 [![GoDoc Widget](https://godoc.org/github.com/go-courier/husky?status.svg)](https://godoc.org/github.com/go-courier/husky)
-[![Build Status](https://travis-ci.org/go-courier/husky.svg?branch=master)](https://travis-ci.org/go-courier/husky)
 [![codecov](https://codecov.io/gh/go-courier/husky/branch/master/graph/badge.svg)](https://codecov.io/gh/go-courier/husky)
 [![Go Report Card](https://goreportcard.com/badge/github.com/go-courier/husky)](https://goreportcard.com/report/github.com/go-courier/husky)
 

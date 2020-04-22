@@ -48,3 +48,15 @@ func ListGithookName(root string) ([]string, error) {
 
 	return githooks, nil
 }
+
+func WriteFile(filename string, data []byte) error {
+	dir := filepath.Dir(filename)
+
+	if dir != "" {
+		if err := os.MkdirAll(dir, os.ModePerm); err != nil {
+			return err
+		}
+	}
+
+	return ioutil.WriteFile(filename, data, os.ModePerm)
+}

@@ -11,8 +11,8 @@ import (
 )
 
 var (
-	gitRoot  = husky.ResolveGitRoot()
-	theHusky = husky.HuskyFrom(path.Join(gitRoot, ".husky.yaml"))
+	projectRoot = husky.ResolveGitRoot()
+	theHusky    = husky.HuskyFrom(path.Join(projectRoot, ".husky.yaml"))
 )
 
 var CmdRoot = &cobra.Command{
@@ -20,7 +20,7 @@ var CmdRoot = &cobra.Command{
 }
 
 func init() {
-	Init(gitRoot)
+	Init(projectRoot)
 }
 
 func Init(root string) {
