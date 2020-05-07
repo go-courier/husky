@@ -5,6 +5,14 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
+# [1.2.2](https://github.com/go-courier/husky/compare/v1.2.1...v1.2.2)
+
+### Bug Fixes
+
+* **fix** links in changelog should be full uri path ([6d16a14](https://github.com/go-courier/husky/commit/6d16a14b913ba518a1e61d460d2d4a29fb367434))
+
+
+
 # [1.2.1](https://github.com/go-courier/husky/compare/v1.2.0...v1.2.1)
 
 ### Bug Fixes
