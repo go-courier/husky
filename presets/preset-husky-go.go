@@ -13,6 +13,9 @@ scripts:
     - go test -v -race -coverprofile=coverage.txt -covermode=atomic ./...
   install:
     - go install -v
+  release:
+    - git push
+    - git push origin $(git describe --tags)
 
 hooks:
   pre-commit:
