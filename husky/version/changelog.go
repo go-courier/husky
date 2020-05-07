@@ -57,13 +57,13 @@ All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 `)
 
-	repoName, err := ResolveRepoName()
+	baseURI, err := resolveBaseURI()
 
 	if err != nil {
 		return err
 	}
 
-	if err := writeChangelogSection(file, nextVer, fromVersion, sections, repoName); err != nil {
+	if err := writeChangelogSection(file, nextVer, fromVersion, sections, baseURI); err != nil {
 		return err
 	}
 
@@ -135,7 +135,7 @@ func scanExistsChangelogSection(r io.Reader) ([]*changelogSection, error) {
 	return sections, nil
 }
 
-func writeChangelogSection(w io.Writer, nextVer *semver.Version, fromVersion *semver.Version, sections map[string][]*Commit, repoName string) error {
+func writeChangelogSection(w io.Writer, nextVer *semver.Version, fromVersion *semver.Version, sections map[string][]*Commit, baseURI string) error {
 	titles := make([]string, 0)
 
 	for title := range sections {
@@ -154,7 +154,7 @@ func writeChangelogSection(w io.Writer, nextVer *semver.Version, fromVersion *se
 		io.WriteString(w, "[")
 		io.WriteString(w, nextVer.String())
 		io.WriteString(w, "](")
-		io.WriteString(w, "/"+repoName+"/compare/v"+fromVersion.String()+"..."+"v"+nextVer.String())
+		io.WriteString(w, baseURI+"/compare/v"+fromVersion.String()+"..."+"v"+nextVer.String())
 		io.WriteString(w, ")")
 	}
 
@@ -164,7 +164,7 @@ func writeChangelogSection(w io.Writer, nextVer *semver.Version, fromVersion *se
 		io.WriteString(w, "\n\n")
 
 		for _, v := range sections[title] {
-			writeChangelog(w, v, repoName)
+			writeChangelog(w, v, baseURI)
 		}
 	}
 
@@ -181,7 +181,7 @@ func openOrCreateFile(filename string) (*os.File, error) {
 	return os.OpenFile(filename, os.O_RDWR, os.ModePerm)
 }
 
-func writeChangelog(w io.Writer, cm *Commit, repo string) error {
+func writeChangelog(w io.Writer, cm *Commit, baseURI string) error {
 	io.WriteString(w, "* ")
 	io.WriteString(w, "**")
 	io.WriteString(w, cm.Type)
@@ -203,7 +203,7 @@ func writeChangelog(w io.Writer, cm *Commit, repo string) error {
 	io.WriteString(w, " ([")
 	io.WriteString(w, cm.Hash[0:7])
 	io.WriteString(w, "](")
-	io.WriteString(w, "/"+repo+"/commit/"+cm.Hash)
+	io.WriteString(w, baseURI+"/commit/"+cm.Hash)
 	io.WriteString(w, "))")
 	io.WriteString(w, "\n")
 

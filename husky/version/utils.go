@@ -12,22 +12,37 @@ import (
 	"github.com/go-courier/semver"
 )
 
-func ResolveRepoName() (string, error) {
+func resolveBaseURI() (string, error) {
 	gitURI, err := exec.Command("git", "remote", "get-url", "origin").CombinedOutput()
 	if err != nil {
 		return "", err
 	}
-	return GetRepoName(string(bytes.TrimSpace(gitURI))), nil
+	return getBaseURI(string(bytes.TrimSpace(gitURI))), nil
 }
 
-var regGit = regexp.MustCompile(`^((git@([^/]+):)|(https?://([^/]+)/))(.+).git$`)
+var regGit = regexp.MustCompile(`^(git@|(https?://))(?P<host>[^:/]+)[:/]?(?P<repoName>.+)\.git$`)
 
-func GetRepoName(gitURI string) string {
-	ss := regGit.FindAllStringSubmatch(gitURI, -1)
-	if len(ss) == 0 {
+func getBaseURI(gitURI string) string {
+	matched := regGit.FindAllStringSubmatch(gitURI, -1)
+	if len(matched) == 0 {
 		return ""
 	}
-	return ss[0][len(ss[0])-1]
+
+	host := ""
+	repoName := ""
+
+	for i, n := range regGit.SubexpNames() {
+		v := matched[0][i]
+
+		switch n {
+		case "host":
+			host = v
+		case "repoName":
+			repoName = v
+		}
+	}
+
+	return "https://" + host + "/" + repoName
 }
 
 func Truncate(v interface{}) error {
