@@ -19,6 +19,10 @@ var CmdRoot = &cobra.Command{
 	Use: "husky",
 }
 
+func SetVersion(v string) {
+	CmdRoot.Version = v
+}
+
 func init() {
 	Init(projectRoot)
 }

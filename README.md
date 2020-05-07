@@ -42,12 +42,10 @@ lint-commit:
   email: "^(.+@gmail.com|.+@qq.com)$"
 ```
 
-Commit msg rule follow <https://www.conventionalcommits.org/en/v1.0.0-beta.2/>
-
-optional `[rel]` could be before `header` for jira card number
+Commit msg rule follow <https://www.conventionalcommits.org/en/v1.0.0/>
 
 ```
-type(scope?): [rel?] header
+type(scope?): header
 
 body?
 

@@ -7,7 +7,7 @@ scripts:
   cover:
     - go test -v -race -coverprofile=coverage.txt -covermode=atomic ./...
   install:
-    - go install -v
+    - go install -v -ldflags "-X main.Version=$(git describe --tags)"
 
 hooks:
   pre-commit:

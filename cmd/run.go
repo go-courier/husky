@@ -26,6 +26,7 @@ func init() {
 			Use:   n,
 			Short: strings.Join(ss, " && "),
 			Run: func(cmd *cobra.Command, args []string) {
+
 				fmtx.Fprintln(os.Stdout, color.YellowString(n))
 				catch(scripts.RunScripts(ss))
 			},

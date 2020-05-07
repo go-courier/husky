@@ -5,7 +5,7 @@ import (
 )
 
 func LintCommitMsg(commitMsg string) error {
-	_, err := conventionalcommit.ParseCommit(commitMsg)
+	_, err := conventionalcommit.ParseCommitMsg(commitMsg)
 	if err != nil {
 		return err
 	}

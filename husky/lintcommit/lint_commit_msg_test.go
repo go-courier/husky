@@ -18,6 +18,7 @@ func TestCheckCommitMsg(t *testing.T) {
 	t.Run("valid header", func(t *testing.T) {
 		NewWithT(t).Expect(LintCommitMsg("chore: test")).To(BeNil())
 		NewWithT(t).Expect(LintCommitMsg("fix(account): #IEP-111 test")).To(BeNil())
+		NewWithT(t).Expect(LintCommitMsg("feat(account)!: #IEP-111 test")).To(BeNil())
 		NewWithT(t).Expect(LintCommitMsg("fix(test/account): #IEP-111 test")).To(BeNil())
 	})
 }
