@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
 
+
 # [1.2.0](/go-courier/husky/compare/v1.1.1...v1.2.0)
 
 ### Bug Fixes
@@ -13,4 +14,4 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-* **feat** auto version and generate changelog ([8cf50ec](/go-courier/husky/commit/8cf50ec6a058d6a58f95681c22ce94457469d821))
+* **feat** auto version and generate changelog ([bd5134f](/go-courier/husky/commit/bd5134fd4f17e0ec3b04794b6687d6c0915e2b44))
