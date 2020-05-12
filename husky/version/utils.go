@@ -77,5 +77,8 @@ func GitUpAll() error {
 func GitTagVersion(ver *semver.Version) error {
 	v := ver.String()
 	defer fmtx.Fprintln(os.Stdout, v)
-	return scripts.StdRun(`git add . && git commit --no-verify -m "chore(release): v` + v + `" && git tag --force v` + v)
+
+	scripts.StdRun(`git add . && git commit --no-verify -m "chore(release): v` + v + `"`)
+
+	return scripts.StdRun(`git tag --force v` + v)
 }
