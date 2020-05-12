@@ -5,6 +5,14 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
+# [1.2.3](https://github.com/go-courier/husky/compare/v1.2.2...v1.2.3)
+
+### Bug Fixes
+
+* **fix** commit generated changelog shoud be optional ([77af755](https://github.com/go-courier/husky/commit/77af7559a7d811459879725aeb7e777d42231d51))
+
+
+
 # [1.2.2](https://github.com/go-courier/husky/compare/v1.2.1...v1.2.2)
 
 ### Bug Fixes
