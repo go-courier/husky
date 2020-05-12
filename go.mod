@@ -3,7 +3,7 @@ module github.com/go-courier/husky
 go 1.14
 
 require (
-	github.com/go-courier/semver v1.0.0
+	github.com/go-courier/semver v1.0.1
 	github.com/davecgh/go-spew v1.1.1
 	github.com/fatih/color v1.9.0
 	github.com/gobwas/glob v0.2.3
