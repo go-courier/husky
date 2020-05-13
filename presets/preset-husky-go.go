@@ -15,7 +15,7 @@ scripts:
     - go install -v
   release:
     - git push
-    - git push origin $(git describe --tags)
+    - git push origin $(git describe --tags --abbrev=0)
 
 hooks:
   pre-commit:
