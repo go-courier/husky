@@ -4,6 +4,7 @@ import (
 	"io/ioutil"
 	"os"
 	"path"
+	"runtime/debug"
 
 	"github.com/go-courier/husky/husky"
 	"github.com/go-courier/husky/husky/fmtx"
@@ -19,11 +20,14 @@ var CmdRoot = &cobra.Command{
 	Use: "husky",
 }
 
-func SetVersion(v string) {
-	CmdRoot.Version = v
-}
-
 func init() {
+	if info, available := debug.ReadBuildInfo(); available {
+		CmdRoot.Version = info.Main.Version
+
+		if info.Main.Sum != "" {
+			CmdRoot.Version += "+" + CmdRoot.Version
+		}
+	}
 	Init(projectRoot)
 }
 
