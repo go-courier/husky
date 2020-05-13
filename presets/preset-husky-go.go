@@ -19,7 +19,7 @@ scripts:
 
 hooks:
   pre-commit:
-    - go vet ./...
+    - golangci-lint run
     - husky lint-staged
   commit-msg:
     - husky lint-commit
