@@ -5,6 +5,14 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
+# [1.2.4](https://github.com/go-courier/husky/compare/v1.2.3...v1.2.4)
+
+### Bug Fixes
+
+* **fix(preset):** husky-go script release enhancement ([88f7880](https://github.com/go-courier/husky/commit/88f788067788f32b7ba32bf5cc83bb4e0082a76b))
+
+
+
 # [1.2.3](https://github.com/go-courier/husky/compare/v1.2.2...v1.2.3)
 
 ### Bug Fixes
