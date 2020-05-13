@@ -16,7 +16,7 @@ func TestUpdateChangeLog(t *testing.T) {
 		nextVer, sections := version.CalcNextVer(commits, nil)
 		t.Log(nextVer)
 
-		version.UpdateChangeLog(f, nextVer, nil, sections)
+		ignoreErr(version.UpdateChangeLog(f, nextVer, nil, sections))
 		t.Log(f.String())
 	})
 
@@ -25,7 +25,10 @@ func TestUpdateChangeLog(t *testing.T) {
 		nextVer, sections := version.CalcNextVer(list, lastVer)
 		t.Log(nextVer)
 
-		version.UpdateChangeLog(f, nextVer, lastVer, sections)
+		ignoreErr(version.UpdateChangeLog(f, nextVer, lastVer, sections))
 		t.Log(f.String())
 	})
+}
+
+func ignoreErr(err error) {
 }

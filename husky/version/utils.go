@@ -12,6 +12,10 @@ import (
 	"github.com/go-courier/semver"
 )
 
+func ignore(err error) {
+
+}
+
 func resolveBaseURI() (string, error) {
 	gitURI, err := exec.Command("git", "remote", "get-url", "origin").CombinedOutput()
 	if err != nil {
@@ -78,7 +82,7 @@ func GitTagVersion(ver *semver.Version) error {
 	v := ver.String()
 	defer fmtx.Fprintln(os.Stdout, v)
 
-	scripts.StdRun(`git add . && git commit --no-verify -m "chore(release): v` + v + `"`)
+	ignore(scripts.StdRun(`git add . && git commit --no-verify -m "chore(release): v` + v + `"`))
 
 	return scripts.StdRun(`git tag --force v` + v)
 }

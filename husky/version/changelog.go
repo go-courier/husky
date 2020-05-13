@@ -51,7 +51,7 @@ func UpdateChangeLog(file interface {
 		return err
 	}
 
-	io.WriteString(file, `# Change Log
+	writeString(file, `# Change Log
 
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
@@ -72,7 +72,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 		if s.Version.String() != nextVer.String() {
 			writeChangelogSectionSplit(file)
-			io.WriteString(file, strings.TrimSpace(s.Lines.String())+"\n")
+			writeString(file, strings.TrimSpace(s.Lines.String())+"\n")
 		}
 	}
 
@@ -146,25 +146,27 @@ func writeChangelogSection(w io.Writer, nextVer *semver.Version, fromVersion *se
 
 	writeChangelogSectionSplit(w)
 
-	io.WriteString(w, "# ")
+	writeString(w, "# ")
 
 	if fromVersion == nil {
-		io.WriteString(w, nextVer.String())
+		writeString(w, nextVer.String())
 	} else {
-		io.WriteString(w, "[")
-		io.WriteString(w, nextVer.String())
-		io.WriteString(w, "](")
-		io.WriteString(w, baseURI+"/compare/v"+fromVersion.String()+"..."+"v"+nextVer.String())
-		io.WriteString(w, ")")
+		writeString(w, "[")
+		writeString(w, nextVer.String())
+		writeString(w, "](")
+		writeString(w, baseURI+"/compare/v"+fromVersion.String()+"..."+"v"+nextVer.String())
+		writeString(w, ")")
 	}
 
 	for _, title := range titles {
-		io.WriteString(w, "\n\n")
-		io.WriteString(w, "### "+title)
-		io.WriteString(w, "\n\n")
+		writeString(w, "\n\n")
+		writeString(w, "### "+title)
+		writeString(w, "\n\n")
 
 		for _, v := range sections[title] {
-			writeChangelog(w, v, baseURI)
+			if err := writeChangelog(w, v, baseURI); err != nil {
+				return err
+			}
 		}
 	}
 
@@ -182,34 +184,39 @@ func openOrCreateFile(filename string) (*os.File, error) {
 }
 
 func writeChangelog(w io.Writer, cm *Commit, baseURI string) error {
-	io.WriteString(w, "* ")
-	io.WriteString(w, "**")
-	io.WriteString(w, cm.Type)
+	writeString(w, "* ")
+	writeString(w, "**")
+	writeString(w, cm.Type)
 
 	if cm.Scope != "" {
-		io.WriteString(w, "(")
-		io.WriteString(w, cm.Scope)
-		io.WriteString(w, "):")
+		writeString(w, "(")
+		writeString(w, cm.Scope)
+		writeString(w, "):")
 	}
 
-	io.WriteString(w, "** ")
+	writeString(w, "** ")
 
 	if cm.BreakingChange {
-		io.WriteString(w, "**BREAKING CHANGE** ")
+		writeString(w, "**BREAKING CHANGE** ")
 	}
 
-	io.WriteString(w, cm.Header)
+	writeString(w, cm.Header)
 
-	io.WriteString(w, " ([")
-	io.WriteString(w, cm.Hash[0:7])
-	io.WriteString(w, "](")
-	io.WriteString(w, baseURI+"/commit/"+cm.Hash)
-	io.WriteString(w, "))")
-	io.WriteString(w, "\n")
+	writeString(w, " ([")
+	writeString(w, cm.Hash[0:7])
+	writeString(w, "](")
+	writeString(w, baseURI+"/commit/"+cm.Hash)
+	writeString(w, "))")
+	writeString(w, "\n")
 
 	return nil
 }
 
 func writeChangelogSectionSplit(w io.Writer) {
-	io.WriteString(w, "\n\n\n")
+	writeString(w, "\n\n\n")
+}
+
+func writeString(w io.Writer, s string) {
+	_, err := io.WriteString(w, s)
+	ignore(err)
 }

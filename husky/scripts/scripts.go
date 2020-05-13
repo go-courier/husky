@@ -5,7 +5,6 @@ import (
 	"os"
 	"os/exec"
 	"runtime"
-	"strings"
 
 	"github.com/fatih/color"
 	"github.com/go-courier/husky/husky/fmtx"
@@ -13,7 +12,7 @@ import (
 
 func RunScripts(scripts []string) error {
 	for _, s := range scripts {
-		cmd := strings.Join(append([]string{s}), " ")
+		cmd := s
 
 		fmtx.Fprintln(os.Stdout, color.MagentaString(cmd))
 

@@ -77,8 +77,9 @@ func LastVersion() (ver *semver.Version, tag string, err error) {
 
 	wg := &sync.WaitGroup{}
 
+	wg.Add(1)
+
 	go func() {
-		wg.Add(1)
 		defer wg.Done()
 
 		s := bufio.NewScanner(stdoutPipe)

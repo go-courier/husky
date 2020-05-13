@@ -31,11 +31,15 @@ func Init(root string) {
 	githooks, _ := husky.ListGithookName(root)
 
 	for _, githook := range githooks {
-		ioutil.WriteFile(path.Join(root, ".git/hooks", githook), []byte(`#!/bin/sh
+		ignore(ioutil.WriteFile(path.Join(root, ".git/hooks", githook), []byte(`#!/bin/sh
 
 husky hook $(basename "$0") $*
-`), os.ModePerm)
+`), os.ModePerm))
 	}
+}
+
+func ignore(err error) {
+
 }
 
 func catch(err error) {
