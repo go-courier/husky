@@ -5,6 +5,14 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
+# [1.2.5](https://github.com/go-courier/husky/compare/v1.2.4...v1.2.5)
+
+### Bug Fixes
+
+* **fix(preset):** golangci-lint instead vet ([b3e966e](https://github.com/go-courier/husky/commit/b3e966e3ef7d34f1c4976a3bfc2c4a435f6ebedf))
+
+
+
 # [1.2.4](https://github.com/go-courier/husky/compare/v1.2.3...v1.2.4)
 
 ### Bug Fixes
