@@ -8,11 +8,11 @@ import (
 
 func TestParseCommitMsg(t *testing.T) {
 	t.Run("simple", func(t *testing.T) {
-		cm, err := ParseCommitMsg(`feat(parser): add ability to parse arrays`)
+		cm, err := ParseCommitMsg(`feat(parser-test): add ability to parse arrays`)
 		NewWithT(t).Expect(err).To(BeNil())
 
 		NewWithT(t).Expect(cm.Type).To(Equal("feat"))
-		NewWithT(t).Expect(cm.Scope).To(Equal("parser"))
+		NewWithT(t).Expect(cm.Scope).To(Equal("parser-test"))
 		NewWithT(t).Expect(cm.Header).To(Equal("add ability to parse arrays"))
 	})
 

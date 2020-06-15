@@ -9,7 +9,7 @@ import (
 
 // https://www.conventionalcommits.org/en/v1.0.0/
 
-var reHeader = regexp.MustCompile(`^(?P<type>\w+)(\((?P<scope>[\w/]+)\))?(?P<breaking>!)?:( +)?(?P<header>.+)`)
+var reHeader = regexp.MustCompile(`^(?P<type>\w+)(\((?P<scope>[\w/.-]+)\))?(?P<breaking>!)?:( +)?(?P<header>.+)`)
 
 var Types = map[string]string{
 	"feat":     "Features",
