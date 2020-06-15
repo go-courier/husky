@@ -4,10 +4,10 @@ import (
 	"io/ioutil"
 	"os"
 	"path"
-	"runtime/debug"
 
 	"github.com/go-courier/husky/husky"
 	"github.com/go-courier/husky/husky/fmtx"
+	"github.com/go-courier/husky/version"
 	"github.com/spf13/cobra"
 )
 
@@ -17,17 +17,11 @@ var (
 )
 
 var CmdRoot = &cobra.Command{
-	Use: "husky",
+	Use:     "husky",
+	Version: version.Version,
 }
 
 func init() {
-	if info, available := debug.ReadBuildInfo(); available {
-		CmdRoot.Version = info.Main.Version
-
-		if info.Main.Sum != "" {
-			CmdRoot.Version += "+" + CmdRoot.Version
-		}
-	}
 	Init(projectRoot)
 }
 

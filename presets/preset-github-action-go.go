@@ -17,7 +17,7 @@ jobs:
         with:
           go-version: '^1.14.0'
       - run: go install github.com/go-courier/husky
-      - run: husky cover
+      - run: make cover
       - uses: codecov/codecov-action@v1
         with:
           file: ./coverage.txt

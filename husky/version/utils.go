@@ -3,6 +3,7 @@ package version
 import (
 	"bytes"
 	"io"
+	"io/ioutil"
 	"os"
 	"os/exec"
 	"regexp"
@@ -81,6 +82,8 @@ func GitUpAll() error {
 func GitTagVersion(ver *semver.Version) error {
 	v := ver.String()
 	defer fmtx.Fprintln(os.Stdout, v)
+
+	_ = ioutil.WriteFile(".version", []byte(ver.String()), os.ModePerm)
 
 	ignore(scripts.StdRun(`git add . && git commit --no-verify -m "chore(release): v` + v + `"`))
 
