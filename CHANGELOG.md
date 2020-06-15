@@ -5,6 +5,19 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
+# [1.3.0](https://github.com/go-courier/husky/compare/v1.2.6...v1.3.0)
+
+### Bug Fixes
+
+* **fix** conventionalcommit scope should allow . - ([2808867](https://github.com/go-courier/husky/commit/28088676cfd91ad51e89746e5edc55b273288bda))
+
+
+### Features
+
+* **feat** version should put into .version ([fadcd85](https://github.com/go-courier/husky/commit/fadcd85207e3d02e12e563e6b8b1c1fa7c12b46d))
+
+
+
 # [1.2.6](https://github.com/go-courier/husky/compare/v1.2.5...v1.2.6)
 
 ### Bug Fixes
