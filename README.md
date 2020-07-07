@@ -11,7 +11,7 @@ Husky.js like, but pure in golang
 install
 
 ```
-go install github.com/go-courier/husky
+go get -u github.com/go-courier/husky/cmd/husky
 ```
 
 ## Configuration `.husky.yaml`
