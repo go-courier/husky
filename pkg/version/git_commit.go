@@ -4,7 +4,7 @@ import (
 	"os/exec"
 	"time"
 
-	"github.com/go-courier/husky/husky/conventionalcommit"
+	"github.com/go-courier/husky/pkg/conventionalcommit"
 	"gopkg.in/yaml.v2"
 )
 
@@ -52,8 +52,8 @@ func ListCommit(from string) ([]Commit, error) {
     committedAt: %cI
   msg: |
     %s
-    
-    %b
+
+%w(64,4,4)%-b
 `,
 	}
 

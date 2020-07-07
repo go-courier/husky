@@ -8,8 +8,8 @@ import (
 	"os/exec"
 	"regexp"
 
-	"github.com/go-courier/husky/husky/fmtx"
-	"github.com/go-courier/husky/husky/scripts"
+	"github.com/go-courier/husky/pkg/fmtx"
+	"github.com/go-courier/husky/pkg/scripts"
 	"github.com/go-courier/semver"
 )
 

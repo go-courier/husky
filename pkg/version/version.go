@@ -6,7 +6,7 @@ import (
 	"os/exec"
 	"sync"
 
-	"github.com/go-courier/husky/husky/conventionalcommit"
+	"github.com/go-courier/husky/pkg/conventionalcommit"
 	"github.com/go-courier/semver"
 )
 

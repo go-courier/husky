@@ -1,10 +1,10 @@
-package cmd
+package main
 
 import (
 	"os"
 
-	"github.com/go-courier/husky/husky/fmtx"
-	"github.com/go-courier/husky/husky/version"
+	"github.com/go-courier/husky/pkg/fmtx"
+	"github.com/go-courier/husky/pkg/version"
 	"github.com/spf13/cobra"
 )
 

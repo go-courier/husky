@@ -1,12 +1,12 @@
-package cmd
+package main
 
 import (
 	"io/ioutil"
 	"os"
 	"path"
 
-	"github.com/go-courier/husky/husky"
-	"github.com/go-courier/husky/husky/fmtx"
+	"github.com/go-courier/husky/pkg/fmtx"
+	"github.com/go-courier/husky/pkg/husky"
 	"github.com/go-courier/husky/version"
 	"github.com/spf13/cobra"
 )

@@ -7,7 +7,7 @@ import (
 	"runtime"
 
 	"github.com/fatih/color"
-	"github.com/go-courier/husky/husky/fmtx"
+	"github.com/go-courier/husky/pkg/fmtx"
 )
 
 func RunScripts(scripts []string) error {

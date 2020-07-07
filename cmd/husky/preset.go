@@ -1,10 +1,10 @@
-package cmd
+package main
 
 import (
 	"path"
 
-	"github.com/go-courier/husky/husky"
-	"github.com/go-courier/husky/presets"
+	"github.com/go-courier/husky/cmd/husky/presets"
+	"github.com/go-courier/husky/pkg/husky"
 	"github.com/spf13/cobra"
 )
 

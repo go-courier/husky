@@ -1,11 +1,11 @@
-package cmd
+package main
 
 import (
 	"os"
 
 	"github.com/fatih/color"
-	"github.com/go-courier/husky/husky/fmtx"
-	"github.com/go-courier/husky/husky/scripts"
+	"github.com/go-courier/husky/pkg/fmtx"
+	"github.com/go-courier/husky/pkg/scripts"
 	"github.com/spf13/cobra"
 )
 

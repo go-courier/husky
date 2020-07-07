@@ -4,8 +4,8 @@ import (
 	"io/ioutil"
 	"os"
 
-	"github.com/go-courier/husky/husky/lintcommit"
-	"github.com/go-courier/husky/husky/lintstaged"
+	"github.com/go-courier/husky/pkg/lintcommit"
+	"github.com/go-courier/husky/pkg/lintstaged"
 	"gopkg.in/yaml.v2"
 )
 

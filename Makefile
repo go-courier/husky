@@ -1,18 +1,21 @@
-VERSION=$(shell cat .version)
+PKG=$(shell cat go.mod | grep "^module " | sed -e "s/module //g")
+VERSION=v$(shell cat .version)
 
-install:
-	go install -v -ldflags "-X github.com/go-courier/husky/version.Version=${VERSION}"
+GOOS ?= $(shell go env GOOS)
+GOARCH ?= $(shell go env GOARCH)
+GOBUILD=CGO_ENABLED=0 go build -ldflags "-X ${PKG}/version.Version=${VERSION}"
 
-lint:
-	husky hook pre-commit
-	husky hook commit-msg
+MAIN_ROOT ?= ./cmd/husky
 
-test:
-	go test -v -race ./...
+build:
+	cd $(MAIN_ROOT) && $(GOBUILD)
 
-cover:
-	go test -v -race -coverprofile=coverage.txt -covermode=atomic ./...
+install: build
+	mv $(MAIN_ROOT)/husky ${GOPATH}/bin/husky
+
+deps:
+	cd $(MAIN_ROOT) && go get -u
 
 release:
 	git push
-	git push origin v${VERSION}
+	git push origin ${VERSION}
