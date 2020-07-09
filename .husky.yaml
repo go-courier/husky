@@ -10,4 +10,4 @@ lint-staged:
     - gofmt -l -w
 
 lint-commit:
-  email: "^(.+@gmail.com|.+@qq.com)$"
+  email: "^(.+@gmail.com|.+@qq.com|.+@live.com)$"
