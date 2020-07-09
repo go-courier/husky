@@ -17,15 +17,10 @@ go get -u github.com/go-courier/husky/cmd/husky
 ## Configuration `.husky.yaml`
 
 ```yaml
-## custom scripts
-scripts:
-  run: 
-    - go run .
-
 hooks:
   # hook scripts
   pre-commit:
-    - go vet ./...
+    - golangci-lint run
     - husky lint-staged
   commit-msg:
     - husky lint-commit
