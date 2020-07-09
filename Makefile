@@ -28,6 +28,5 @@ install: build.husky
 deps:
 	cd $(MAIN_ROOT) && go get -u
 
-release:
-	git push
-	git push origin ${VERSION}
+release: install
+	husky version --skip-tag

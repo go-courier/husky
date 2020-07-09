@@ -15,6 +15,7 @@ func init() {
 
 	cmdVersion.Flags().StringVarP(&versionOpt.Prerelease, "pre", "", "", "version with pre release. ex. alpha.0 beta.0")
 	cmdVersion.Flags().BoolVarP(&versionOpt.SkipPull, "skip-pull", "", false, "skip pull")
+	cmdVersion.Flags().BoolVarP(&versionOpt.SkipTag, "skip-tag", "", false, "skip tag")
 }
 
 var cmdVersion = &cobra.Command{

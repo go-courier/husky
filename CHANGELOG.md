@@ -5,7 +5,12 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-# [1.3.2](https://github.com/tangx/husky/compare/v1.3.1...v1.3.2)
+# [1.3.2](https://github.com/go-courier/husky/compare/v1.3.1...v1.3.2)
+
+### Bug Fixes
+
+* **fix** version --skip-tag for auto release ([b073e84](https://github.com/go-courier/husky/commit/b073e848bdc6b23f5bd5cec48c79321656ad6273))
+
 
 
 # [1.3.1](https://github.com/go-courier/husky/compare/v1.3.0...v1.3.1)

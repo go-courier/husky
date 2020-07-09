@@ -79,13 +79,15 @@ func GitUpAll() error {
 	return scripts.StdRun("git pull --rebase && git pull --tags")
 }
 
-func GitTagVersion(ver *semver.Version) error {
+func GitTagVersion(ver *semver.Version, skipTag bool) error {
 	v := ver.String()
 	defer fmtx.Fprintln(os.Stdout, v)
-
 	_ = ioutil.WriteFile(".version", []byte(ver.String()), os.ModePerm)
-
 	ignore(scripts.StdRun(`git add . && git commit --no-verify -m "chore(release): v` + v + `"`))
+
+	if skipTag {
+		return nil
+	}
 
 	return scripts.StdRun(`git tag --force v` + v)
 }

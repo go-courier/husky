@@ -108,6 +108,7 @@ func LastVersion() (ver *semver.Version, tag string, err error) {
 type VersionOpt struct {
 	Prerelease string
 	SkipPull   bool
+	SkipTag    bool
 }
 
 func Version(opt VersionOpt) error {
@@ -150,5 +151,5 @@ func Version(opt VersionOpt) error {
 		nextVer = v
 	}
 
-	return GitTagVersion(nextVer)
+	return GitTagVersion(nextVer, opt.SkipTag)
 }
