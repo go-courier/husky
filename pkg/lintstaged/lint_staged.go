@@ -51,10 +51,10 @@ func (lintStaged LintStaged) NewLint() func() error {
 					fmtx.TopicFprintln("lint-staged", os.Stdout, color.MagentaString(s))
 
 					for _, f := range matchedFiles[i] {
-						if err := scripts.StdRun(s + " " + f); err != nil {
+						if err := scripts.RunScript(s + " " + f); err != nil {
 							return err
 						}
-						if err := scripts.StdRun("git add " + f); err != nil {
+						if err := scripts.RunScript("git add " + f); err != nil {
 							return err
 						}
 					}

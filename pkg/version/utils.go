@@ -76,18 +76,18 @@ func IsCleanWorkingDir() (bool, error) {
 }
 
 func GitUpAll() error {
-	return scripts.StdRun("git pull --rebase && git pull --tags")
+	return scripts.RunScript("git pull --rebase && git pull --tags --force")
 }
 
 func GitTagVersion(ver *semver.Version, skipTag bool) error {
 	v := ver.String()
 	defer fmtx.Fprintln(os.Stdout, v)
 	_ = ioutil.WriteFile(".version", []byte(ver.String()), os.ModePerm)
-	ignore(scripts.StdRun(`git add . && git commit --no-verify -m "chore(release): v` + v + `"`))
+	ignore(scripts.RunScript(`git add . && git commit --no-verify -m "chore(release): v` + v + `"`))
 
 	if skipTag {
 		return nil
 	}
 
-	return scripts.StdRun(`git tag --force v` + v)
+	return scripts.RunScript(`git tag --force v` + v)
 }

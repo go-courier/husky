@@ -3,8 +3,11 @@ package version
 import (
 	"bufio"
 	"fmt"
+	"os"
 	"os/exec"
 	"sync"
+
+	"github.com/go-courier/husky/pkg/fmtx"
 
 	"github.com/go-courier/husky/pkg/conventionalcommit"
 	"github.com/go-courier/semver"
@@ -131,6 +134,8 @@ func Version(opt VersionOpt) error {
 		return err
 	}
 
+	fmtx.Fprintln(os.Stdout, "calc version...")
+
 	nextVer, sections := CalcNextVer(commitList, lastVer)
 
 	// no change log when pre release
@@ -139,6 +144,8 @@ func Version(opt VersionOpt) error {
 		if err != nil {
 			return err
 		}
+
+		fmtx.Fprintln(os.Stdout, "updating changelog...")
 
 		if err := UpdateChangeLog(file, nextVer, lastVer, sections); err != nil {
 			return err

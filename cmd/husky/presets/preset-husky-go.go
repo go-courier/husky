@@ -12,6 +12,7 @@ hooks:
 
 lint-staged:
   "*.go":
+    - goimports -l -w
     - gofmt -l -w
 
 lint-commit:
