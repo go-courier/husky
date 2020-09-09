@@ -5,6 +5,14 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
+# [1.4.0](https://github.com/go-courier/husky/compare/v1.3.2...v1.4.0)
+
+### Features
+
+* **feat** use mvdan.cc/sh for shell ([6d45e85](https://github.com/go-courier/husky/commit/6d45e850236e9f42dffc011c1d39784798465785))
+
+
+
 # [1.3.2](https://github.com/go-courier/husky/compare/v1.3.1...v1.3.2)
 
 ### Bug Fixes
