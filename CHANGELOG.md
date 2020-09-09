@@ -5,6 +5,9 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
+# [1.4.1](https://github.com/go-courier/husky/compare/v1.4.0...v1.4.1)
+
+
 # [1.4.0](https://github.com/go-courier/husky/compare/v1.3.2...v1.4.0)
 
 ### Features
