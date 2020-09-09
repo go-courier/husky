@@ -1,64 +1,36 @@
 package scripts
 
 import (
-	"bufio"
+	"context"
 	"os"
-	"os/exec"
-	"runtime"
+	"strings"
 
-	"github.com/fatih/color"
-	"github.com/go-courier/husky/pkg/fmtx"
+	"mvdan.cc/sh/interp"
+	"mvdan.cc/sh/syntax"
 )
 
 func RunScripts(scripts []string) error {
-	for _, s := range scripts {
-		cmd := s
-
-		fmtx.Fprintln(os.Stdout, color.MagentaString(cmd))
-
-		if err := StdRun(cmd); err != nil {
+	for i := range scripts {
+		if err := RunScript(scripts[i]); err != nil {
 			return err
 		}
 	}
 	return nil
 }
 
-func StdRun(cmd string) error {
-	sh := "sh"
-	if runtime.GOOS == "windows" {
-		sh = "bash"
-	}
-	return stdRun(exec.Command(sh, "-c", cmd))
-}
-
-func stdRun(cmd *exec.Cmd) error {
-	{
-		stdoutPipe, err := cmd.StdoutPipe()
-		if err != nil {
-			panic(err)
-		}
-		go scanAndStdout(bufio.NewScanner(stdoutPipe))
+func RunScript(script string) error {
+	sh, err := syntax.NewParser().Parse(strings.NewReader(script), "")
+	if err != nil {
+		return err
 	}
 
-	{
-		stderrPipe, err := cmd.StderrPipe()
-		if err != nil {
-			panic(err)
-		}
-		go scanAndStderr(bufio.NewScanner(stderrPipe))
+	runner, err := interp.New(
+		interp.StdIO(os.Stdin, os.Stdout, os.Stderr),
+	)
+
+	if err != nil {
+		return err
 	}
 
-	return cmd.Run()
-}
-
-func scanAndStdout(scanner *bufio.Scanner) {
-	for scanner.Scan() {
-		fmtx.Fprintln(os.Stderr, scanner.Text())
-	}
-}
-
-func scanAndStderr(scanner *bufio.Scanner) {
-	for scanner.Scan() {
-		fmtx.Fprintln(os.Stderr, color.RedString("%s", scanner.Text()))
-	}
+	return runner.Run(context.Background(), sh)
 }

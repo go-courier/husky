@@ -13,6 +13,7 @@ import (
 
 	"github.com/go-courier/husky/pkg/husky"
 	"github.com/go-courier/semver"
+	"github.com/pkg/errors"
 )
 
 func ReadOrTouchChangeLogFile() (*os.File, error) {
@@ -23,12 +24,12 @@ func ReadOrTouchChangeLogFile() (*os.File, error) {
 func ResolveVersionAndCommits() (*semver.Version, []Commit, error) {
 	lastVersion, tag, err := LastVersion()
 	if err != nil {
-		return nil, nil, err
+		return nil, nil, errors.Wrapf(err, "resolve last version failed")
 	}
 
 	commitList, err := ListCommit(tag)
 	if err != nil {
-		return nil, nil, err
+		return nil, nil, errors.Wrapf(err, "list commit failed")
 	}
 
 	if len(commitList) == 0 {
