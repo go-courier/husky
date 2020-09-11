@@ -2,6 +2,7 @@ package version
 
 import (
 	"bytes"
+	"fmt"
 	"io"
 	"io/ioutil"
 	"os"
@@ -79,15 +80,20 @@ func GitUpAll() error {
 	return scripts.RunScript("git pull --rebase && git pull --tags --force")
 }
 
+func GitPushFollowTags() error {
+	return scripts.RunScript("git push --follow-tags")
+}
+
 func GitTagVersion(ver *semver.Version, skipTag bool) error {
 	v := ver.String()
 	defer fmtx.Fprintln(os.Stdout, v)
 	_ = ioutil.WriteFile(".version", []byte(ver.String()), os.ModePerm)
+
 	ignore(scripts.RunScript(`git add . && git commit --no-verify -m "chore(release): v` + v + `"`))
 
 	if skipTag {
 		return nil
 	}
 
-	return scripts.RunScript(`git tag --force v` + v)
+	return scripts.RunScript(fmt.Sprintf(`git tag --force v%s`, ver))
 }

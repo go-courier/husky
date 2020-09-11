@@ -112,6 +112,7 @@ type VersionOpt struct {
 	Prerelease string
 	SkipPull   bool
 	SkipTag    bool
+	SkipPush   bool
 }
 
 func Version(opt VersionOpt) error {
@@ -158,5 +159,13 @@ func Version(opt VersionOpt) error {
 		nextVer = v
 	}
 
-	return GitTagVersion(nextVer, opt.SkipTag)
+	if err := GitTagVersion(nextVer, opt.SkipTag); err != nil {
+		return err
+	}
+
+	if !opt.SkipPush {
+		return GitPushFollowTags()
+	}
+
+	return nil
 }
