@@ -7,6 +7,11 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 # [1.5.0](https://github.com/go-courier/husky/compare/v1.4.1...v1.5.0)
 
+### Bug Fixes
+
+* **fix** tag version should with --annotate ([90bb2de](https://github.com/go-courier/husky/commit/90bb2de8635df102ed9453a070701c52ad605d58))
+
+
 ### Features
 
 * **feat** version & push ([c1dd871](https://github.com/go-courier/husky/commit/c1dd8714f209963cf5c139d42eab47cfcb82bcf5))
