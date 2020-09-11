@@ -1,6 +1,7 @@
 package husky
 
 import (
+	"context"
 	"io/ioutil"
 	"os"
 
@@ -9,7 +10,7 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
-func HuskyFrom(huskyFile string) *Husky {
+func HuskyFrom(ctx context.Context, huskyFile string) *Husky {
 	data, err := ioutil.ReadFile(huskyFile)
 	if err != nil {
 		if !os.IsNotExist(err) {
@@ -26,7 +27,8 @@ func HuskyFrom(huskyFile string) *Husky {
 	h := &Husky{
 		Spec: *s,
 	}
-	h.Init()
+
+	h.Init(ctx)
 
 	return h
 }
@@ -37,9 +39,9 @@ type Husky struct {
 	RunLintStated func() error
 }
 
-func (h *Husky) Init() {
-	h.RunLintCommit = h.LintCommit.NewLint()
-	h.RunLintStated = h.LintStaged.NewLint()
+func (h *Husky) Init(ctx context.Context) {
+	h.RunLintCommit = h.LintCommit.NewLint(ctx)
+	h.RunLintStated = h.LintStaged.NewLint(ctx)
 }
 
 func NewSpec() *Spec {
@@ -51,7 +53,6 @@ func NewSpec() *Spec {
 }
 
 type Spec struct {
-	Scripts    map[string][]string   `yaml:"scripts,omitempty"`
 	Hooks      map[string][]string   `yaml:"hooks,omitempty"`
 	LintStaged lintstaged.LintStaged `yaml:"lint-staged,omitempty"`
 	LintCommit lintcommit.LintCommit `yaml:"lint-commit,omitempty"`

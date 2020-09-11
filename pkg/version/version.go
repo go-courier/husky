@@ -2,12 +2,13 @@ package version
 
 import (
 	"bufio"
+	"context"
 	"fmt"
-	"os"
 	"os/exec"
 	"sync"
 
-	"github.com/go-courier/husky/pkg/fmtx"
+	"github.com/go-courier/husky/pkg/log"
+	"github.com/go-logr/logr"
 
 	"github.com/go-courier/husky/pkg/conventionalcommit"
 	"github.com/go-courier/semver"
@@ -111,11 +112,21 @@ func LastVersion() (ver *semver.Version, tag string, err error) {
 type VersionOpt struct {
 	Prerelease string
 	SkipPull   bool
+	SkipCommit bool
 	SkipTag    bool
 	SkipPush   bool
 }
 
-func Version(opt VersionOpt) error {
+func NewVersionAction(ctx context.Context, opt VersionOpt) *VersionAction {
+	return &VersionAction{logger: log.LoggerFromContext(ctx).WithName("Version"), opt: opt}
+}
+
+type VersionAction struct {
+	logger logr.Logger
+	opt    VersionOpt
+}
+
+func (a *VersionAction) Do() error {
 	ok, err := IsCleanWorkingDir()
 	if err != nil {
 		return err
@@ -124,8 +135,10 @@ func Version(opt VersionOpt) error {
 		return fmt.Errorf("files should be committed before version")
 	}
 
-	if !opt.SkipPull {
-		if err := GitUpAll(); err != nil {
+	ctx := log.WithLogger(a.logger)(context.Background())
+
+	if !a.opt.SkipPull {
+		if err := GitUpAll(ctx); err != nil {
 			return err
 		}
 	}
@@ -135,36 +148,34 @@ func Version(opt VersionOpt) error {
 		return err
 	}
 
-	fmtx.Fprintln(os.Stdout, "calc version...")
+	a.logger.Info("calc version...")
 
 	nextVer, sections := CalcNextVer(commitList, lastVer)
 
 	// no change log when pre release
-	if opt.Prerelease == "" {
+	if a.opt.Prerelease == "" {
 		file, err := ReadOrTouchChangeLogFile()
 		if err != nil {
 			return err
 		}
-
-		fmtx.Fprintln(os.Stdout, "updating changelog...")
-
+		a.logger.Info("updating changelog...")
 		if err := UpdateChangeLog(file, nextVer, lastVer, sections); err != nil {
 			return err
 		}
 	} else {
-		v, err := nextVer.WithPrerelease(opt.Prerelease)
+		v, err := nextVer.WithPrerelease(a.opt.Prerelease)
 		if err != nil {
 			return err
 		}
 		nextVer = v
 	}
 
-	if err := GitTagVersion(nextVer, opt.SkipTag); err != nil {
+	if err := GitTagVersion(ctx, nextVer, a.opt.SkipCommit, a.opt.SkipTag); err != nil {
 		return err
 	}
 
-	if !opt.SkipPush {
-		return GitPushFollowTags()
+	if !a.opt.SkipPush {
+		return GitPushFollowTags(ctx)
 	}
 
 	return nil

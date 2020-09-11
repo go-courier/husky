@@ -4,8 +4,9 @@ go 1.15
 
 require (
 	github.com/davecgh/go-spew v1.1.1
-	github.com/fatih/color v1.9.0
 	github.com/go-courier/semver v1.0.1
+	github.com/go-logr/glogr v0.2.0
+	github.com/go-logr/logr v0.2.1
 	github.com/gobwas/glob v0.2.3
 	github.com/mattn/go-colorable v0.1.7 // indirect
 	github.com/onsi/gomega v1.10.2

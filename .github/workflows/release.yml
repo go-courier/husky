@@ -6,6 +6,7 @@ on:
     paths:
       - '.github/workflows/release.yml'
       - '.version'
+      - 'CHANGELOG.md'
 
 jobs:
   build:

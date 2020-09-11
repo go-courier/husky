@@ -12,6 +12,8 @@ var cmdLintCommit = &cobra.Command{
 	Use:   "lint-commit",
 	Short: "lint commit msg",
 	Run: func(cmd *cobra.Command, args []string) {
-		catch(theHusky.RunLintCommit())
+		if err := theHusky.RunLintCommit(); err != nil {
+			logger.Error(err, "failed.")
+		}
 	},
 }

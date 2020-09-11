@@ -2,6 +2,7 @@ package version
 
 import (
 	"bytes"
+	"context"
 	"fmt"
 	"io"
 	"io/ioutil"
@@ -12,10 +13,6 @@ import (
 	"github.com/go-courier/husky/pkg/scripts"
 	"github.com/go-courier/semver"
 )
-
-func ignore(err error) {
-
-}
 
 func resolveBaseURI() (string, error) {
 	gitURI, err := exec.Command("git", "remote", "get-url", "origin").CombinedOutput()
@@ -75,22 +72,24 @@ func IsCleanWorkingDir() (bool, error) {
 	return len(bytes.TrimSpace(ret)) == 0, nil
 }
 
-func GitUpAll() error {
-	return scripts.RunScript("git pull --rebase && git pull --tags --force")
+func GitUpAll(ctx context.Context) error {
+	return scripts.RunScript(ctx, "git pull --rebase && git pull --tags --force")
 }
 
-func GitPushFollowTags() error {
-	return scripts.RunScript("git push --follow-tags")
+func GitPushFollowTags(ctx context.Context) error {
+	return scripts.RunScript(ctx, "git push --follow-tags")
 }
 
-func GitTagVersion(ver *semver.Version, skipTag bool) error {
+func GitTagVersion(ctx context.Context, ver *semver.Version, skipCommit bool, skipTag bool) error {
 	_ = ioutil.WriteFile(".version", []byte(ver.String()), os.ModePerm)
 
-	ignore(scripts.RunScript(fmt.Sprintf(`git add . && git commit --no-verify --message "chore(release): v%s"`, ver)))
-
-	if skipTag {
-		return nil
+	if !skipCommit {
+		_ = scripts.RunScript(ctx, fmt.Sprintf(`git add . && git commit --no-verify --message "chore(release): v%s"`, ver))
 	}
 
-	return scripts.RunScript(fmt.Sprintf(`git tag --force --annotate v%s --message "v%s"`, ver, ver))
+	if !skipTag {
+		return scripts.RunScript(ctx, fmt.Sprintf(`git tag --force --annotate v%s --message "v%s"`, ver, ver))
+	}
+
+	return nil
 }

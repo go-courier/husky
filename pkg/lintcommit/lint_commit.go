@@ -2,16 +2,21 @@ package lintcommit
 
 import (
 	"bytes"
+	"context"
 	"io/ioutil"
 	"os/exec"
+
+	"github.com/go-courier/husky/pkg/log"
 )
 
 type LintCommit struct {
 	Email string `yaml:"email,omitempty"`
 }
 
-func (lintCommit LintCommit) NewLint() func() error {
+func (lintCommit LintCommit) NewLint(ctx context.Context) func() error {
 	var lintCommitEmail func(s string) error
+
+	logger := log.LoggerFromContext(ctx).WithName("LintStaged")
 
 	if lintCommit.Email != "" {
 		lintCommitEmail = CreateLintCommitEmail(lintCommit.Email)
@@ -21,6 +26,7 @@ func (lintCommit LintCommit) NewLint() func() error {
 		if lintCommitEmail != nil {
 			email, err := getGitUserEmail()
 			if err != nil {
+				logger.Error(err, "failed to get git user email")
 				return err
 			}
 			if err := lintCommitEmail(email); err != nil {

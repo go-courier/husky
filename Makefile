@@ -30,3 +30,6 @@ deps:
 
 release: install
 	husky version --skip-tag
+
+version: install
+	husky version --skip-tag --skip-pull --skip-commit --skip-push

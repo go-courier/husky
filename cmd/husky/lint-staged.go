@@ -12,6 +12,8 @@ var cmdLintStaged = &cobra.Command{
 	Use:   "lint-staged",
 	Short: "lint stated files",
 	Run: func(cmd *cobra.Command, args []string) {
-		catch(theHusky.RunLintStated())
+		if err := theHusky.RunLintStated(); err != nil {
+			logger.Error(err, "failed.")
+		}
 	},
 }

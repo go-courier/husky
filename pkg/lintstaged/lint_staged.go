@@ -2,25 +2,27 @@ package lintstaged
 
 import (
 	"bytes"
-	"os"
+	"context"
 	"os/exec"
 	"strings"
 
-	"github.com/fatih/color"
-	"github.com/go-courier/husky/pkg/fmtx"
+	"github.com/go-courier/husky/pkg/log"
+
 	"github.com/go-courier/husky/pkg/scripts"
 	"github.com/gobwas/glob"
 )
 
 type LintStaged map[string][]string
 
-func (lintStaged LintStaged) NewLint() func() error {
+func (lintStaged LintStaged) NewLint(ctx context.Context) func() error {
 	testers := make([]tester, 0)
 
-	for g, scripts := range lintStaged {
+	logger := log.LoggerFromContext(ctx).WithName("LintStaged")
+
+	for g, scriptList := range lintStaged {
 		testers = append(testers, tester{
 			glob:    glob.MustCompile(g),
-			scripts: scripts,
+			scripts: scriptList,
 		})
 	}
 
@@ -31,7 +33,7 @@ func (lintStaged LintStaged) NewLint() func() error {
 		}
 
 		if len(files) == 0 {
-			fmtx.TopicFprintln("lint-staged", os.Stdout, "No staged files found.")
+			logger.Info("No staged files found.")
 			return nil
 		}
 
@@ -48,13 +50,13 @@ func (lintStaged LintStaged) NewLint() func() error {
 		for i, tester := range testers {
 			if len(matchedFiles[i]) > 0 {
 				for _, s := range tester.scripts {
-					fmtx.TopicFprintln("lint-staged", os.Stdout, color.MagentaString(s))
+					logger.Info(s)
 
 					for _, f := range matchedFiles[i] {
-						if err := scripts.RunScript(s + " " + f); err != nil {
+						if err := scripts.RunScript(ctx, s+" "+f); err != nil {
 							return err
 						}
-						if err := scripts.RunScript("git add " + f); err != nil {
+						if err := scripts.RunScript(ctx, "git add "+f); err != nil {
 							return err
 						}
 					}

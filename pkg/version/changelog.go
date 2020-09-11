@@ -218,6 +218,5 @@ func writeChangelogSectionSplit(w io.Writer) {
 }
 
 func writeString(w io.Writer, s string) {
-	_, err := io.WriteString(w, s)
-	ignore(err)
+	_, _ = io.WriteString(w, s)
 }
