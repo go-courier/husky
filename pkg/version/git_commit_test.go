@@ -7,10 +7,9 @@ import (
 )
 
 func TestListCommit(t *testing.T) {
-	lastVersion, _, err := LastVersion()
-	if err != nil {
-		return
+	lastVersion, _, _ := LastVersion()
+	if lastVersion != nil {
+		spew.Dump(lastVersion)
+		spew.Dump(ListCommit("v" + lastVersion.String()))
 	}
-	spew.Dump(lastVersion)
-	spew.Dump(ListCommit("v" + lastVersion.String()))
 }
