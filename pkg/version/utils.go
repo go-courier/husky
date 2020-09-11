@@ -9,7 +9,6 @@ import (
 	"os/exec"
 	"regexp"
 
-	"github.com/go-courier/husky/pkg/fmtx"
 	"github.com/go-courier/husky/pkg/scripts"
 	"github.com/go-courier/semver"
 )
@@ -85,11 +84,9 @@ func GitPushFollowTags() error {
 }
 
 func GitTagVersion(ver *semver.Version, skipTag bool) error {
-	v := ver.String()
-	defer fmtx.Fprintln(os.Stdout, v)
 	_ = ioutil.WriteFile(".version", []byte(ver.String()), os.ModePerm)
 
-	ignore(scripts.RunScript(fmt.Sprintf(`git add . && git commit --no-verify --message "chore(release): v%s"`, v)))
+	ignore(scripts.RunScript(fmt.Sprintf(`git add . && git commit --no-verify --message "chore(release): v%s"`, ver)))
 
 	if skipTag {
 		return nil
