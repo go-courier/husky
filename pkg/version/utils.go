@@ -89,11 +89,11 @@ func GitTagVersion(ver *semver.Version, skipTag bool) error {
 	defer fmtx.Fprintln(os.Stdout, v)
 	_ = ioutil.WriteFile(".version", []byte(ver.String()), os.ModePerm)
 
-	ignore(scripts.RunScript(`git add . && git commit --no-verify -m "chore(release): v` + v + `"`))
+	ignore(scripts.RunScript(fmt.Sprintf(`git add . && git commit --no-verify --message "chore(release): v%s"`, v)))
 
 	if skipTag {
 		return nil
 	}
 
-	return scripts.RunScript(fmt.Sprintf(`git tag --force v%s`, ver))
+	return scripts.RunScript(fmt.Sprintf(`git tag --force --annotate v%s --message "v%s"`, ver, ver))
 }
