@@ -14,6 +14,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
+* **feat** log switch to glogr ([555c5cf](https://github.com/go-courier/husky/commit/555c5cfd4fc2655443ebebe875e960d01abd3e39))
 * **feat** version & push ([c1dd871](https://github.com/go-courier/husky/commit/c1dd8714f209963cf5c139d42eab47cfcb82bcf5))
 
 
