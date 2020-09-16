@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"os"
 
 	"github.com/go-courier/husky/pkg/log"
 	"github.com/go-courier/husky/pkg/version"
@@ -27,6 +28,7 @@ var cmdVersion = &cobra.Command{
 		err := version.NewVersionAction(log.WithLogger(logger.WithName(cmd.Use))(context.Background()), versionOpt).Do()
 		if err != nil {
 			logger.Error(err, "")
+			os.Exit(1)
 		}
 	},
 }

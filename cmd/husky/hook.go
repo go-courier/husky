@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"os"
 
 	"github.com/go-courier/husky/pkg/log"
 	"github.com/go-courier/husky/pkg/scripts"
@@ -25,6 +26,7 @@ var cmdHook = &cobra.Command{
 
 				if err := scripts.RunScripts(ctx, ss); err != nil {
 					l.Error(err, "failed.")
+					os.Exit(1)
 				}
 			}
 		}

@@ -1,6 +1,8 @@
 package main
 
 import (
+	"os"
+
 	"github.com/spf13/cobra"
 )
 
@@ -13,7 +15,8 @@ var cmdLintCommit = &cobra.Command{
 	Short: "lint commit msg",
 	Run: func(cmd *cobra.Command, args []string) {
 		if err := theHusky.RunLintCommit(); err != nil {
-			logger.Error(err, "failed.")
+			logger.Error(err, "failed")
+			os.Exit(1)
 		}
 	},
 }

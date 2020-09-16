@@ -1,6 +1,8 @@
 package main
 
 import (
+	"os"
+
 	"github.com/spf13/cobra"
 )
 
@@ -14,6 +16,7 @@ var cmdLintStaged = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		if err := theHusky.RunLintStated(); err != nil {
 			logger.Error(err, "failed.")
+			os.Exit(1)
 		}
 	},
 }
