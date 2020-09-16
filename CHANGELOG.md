@@ -5,6 +5,14 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
+# [1.5.1](https://github.com/go-courier/husky/compare/v1.5.0...v1.5.1)
+
+### Bug Fixes
+
+* **fix** should exit why script with err ([4e9d426](https://github.com/go-courier/husky/commit/4e9d426aa21474fca3ab7313783634f322acfb4b))
+
+
+
 # [1.5.0](https://github.com/go-courier/husky/compare/v1.4.1...v1.5.0)
 
 ### Bug Fixes
