@@ -8,12 +8,9 @@ require (
 	github.com/go-logr/glogr v0.2.0
 	github.com/go-logr/logr v0.2.1
 	github.com/gobwas/glob v0.2.3
-	github.com/mattn/go-colorable v0.1.7 // indirect
 	github.com/onsi/gomega v1.10.2
 	github.com/pkg/errors v0.9.1
-	github.com/spf13/cobra v1.0.0
-	github.com/spf13/pflag v1.0.5 // indirect
-	golang.org/x/crypto v0.0.0-20200820211705-5c72a883971a // indirect
+	github.com/spf13/cobra v1.1.0
 	golang.org/x/sync v0.0.0-20200625203802-6e8e738ad208 // indirect
 	golang.org/x/sys v0.0.0-20200908134130-d2e65c121b96 // indirect
 	golang.org/x/xerrors v0.0.0-20200804184101-5ec99f83aff1 // indirect
