@@ -5,6 +5,9 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
+# [1.5.2](https://github.com/go-courier/husky/compare/v1.5.1...v1.5.2)
+
+
 # [1.5.1](https://github.com/go-courier/husky/compare/v1.5.0...v1.5.1)
 
 ### Bug Fixes
