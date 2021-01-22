@@ -22,6 +22,7 @@ var (
 
 var CmdRoot = &cobra.Command{
 	Use:     "husky",
+	Short:   "husky " + version.Version,
 	Version: version.Version,
 }
 
