@@ -3,7 +3,6 @@ package main
 import (
 	"context"
 	"flag"
-	"io/ioutil"
 	"os"
 	"path"
 
@@ -36,7 +35,7 @@ func Init(root string) {
 	githooks, _ := husky.ListGithookName(root)
 
 	for _, githook := range githooks {
-		_ = ioutil.WriteFile(path.Join(root, ".git/hooks", githook), []byte(`#!/bin/sh
+		_ = os.WriteFile(path.Join(root, ".git/hooks", githook), []byte(`#!/bin/sh
 
 husky hook $(basename "$0") $*
 `), os.ModePerm)

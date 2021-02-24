@@ -110,11 +110,12 @@ func LastVersion() (ver *semver.Version, tag string, err error) {
 }
 
 type VersionOpt struct {
-	Prerelease string
-	SkipPull   bool
-	SkipCommit bool
-	SkipTag    bool
-	SkipPush   bool
+	VersionFile string
+	Prerelease  string
+	SkipPull    bool
+	SkipCommit  bool
+	SkipTag     bool
+	SkipPush    bool
 }
 
 func NewVersionAction(ctx context.Context, opt VersionOpt) *VersionAction {
@@ -170,7 +171,7 @@ func (a *VersionAction) Do() error {
 		nextVer = v
 	}
 
-	if err := GitTagVersion(ctx, nextVer, a.opt.SkipCommit, a.opt.SkipTag); err != nil {
+	if err := GitTagVersion(ctx, nextVer, a.opt.SkipCommit, a.opt.SkipTag, a.opt.VersionFile); err != nil {
 		return err
 	}
 

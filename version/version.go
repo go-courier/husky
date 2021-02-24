@@ -1,5 +1,6 @@
 package version
 
-var (
-	Version = "0.0.1"
-)
+import _ "embed"
+
+//go:embed version
+var Version string

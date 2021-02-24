@@ -3,7 +3,7 @@ package lintcommit
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"os"
 	"os/exec"
 
 	"github.com/go-courier/husky/pkg/log"
@@ -47,6 +47,6 @@ func getGitUserEmail() (string, error) {
 }
 
 func getGitLastCommitMsg() (string, error) {
-	ret, err := ioutil.ReadFile(".git/COMMIT_EDITMSG")
+	ret, err := os.ReadFile(".git/COMMIT_EDITMSG")
 	return string(ret), err
 }

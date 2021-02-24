@@ -2,7 +2,6 @@ package husky
 
 import (
 	"fmt"
-	"io/ioutil"
 	"os"
 	"path"
 	"path/filepath"
@@ -31,7 +30,7 @@ func resolveGitRoot(path string) string {
 func ListGithookName(root string) ([]string, error) {
 	githooks := make([]string, 0)
 
-	files, err := ioutil.ReadDir(path.Join(root, ".git/hooks"))
+	files, err := os.ReadDir(path.Join(root, ".git/hooks"))
 	if err != nil {
 		return nil, err
 	}
@@ -58,5 +57,5 @@ func WriteFile(filename string, data []byte) error {
 		}
 	}
 
-	return ioutil.WriteFile(filename, data, os.ModePerm)
+	return os.WriteFile(filename, data, os.ModePerm)
 }

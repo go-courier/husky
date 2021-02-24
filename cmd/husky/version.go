@@ -25,6 +25,8 @@ var cmdVersion = &cobra.Command{
 	Use:   "version",
 	Short: "auto version by conventional commit",
 	Run: func(cmd *cobra.Command, args []string) {
+		versionOpt.VersionFile = theHusky.VersionFile
+
 		err := version.NewVersionAction(log.WithLogger(logger.WithName(cmd.Use))(context.Background()), versionOpt).Do()
 		if err != nil {
 			logger.Error(err, "")

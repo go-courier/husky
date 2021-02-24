@@ -1,3 +1,5 @@
+version-file: version/version
+
 hooks:
   pre-commit:
     - golangci-lint run

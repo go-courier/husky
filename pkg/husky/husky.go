@@ -2,7 +2,6 @@ package husky
 
 import (
 	"context"
-	"io/ioutil"
 	"os"
 
 	"github.com/go-courier/husky/pkg/lintcommit"
@@ -11,7 +10,7 @@ import (
 )
 
 func HuskyFrom(ctx context.Context, huskyFile string) *Husky {
-	data, err := ioutil.ReadFile(huskyFile)
+	data, err := os.ReadFile(huskyFile)
 	if err != nil {
 		if !os.IsNotExist(err) {
 			panic(err)
@@ -22,6 +21,10 @@ func HuskyFrom(ctx context.Context, huskyFile string) *Husky {
 
 	if err := yaml.Unmarshal(data, s); err != nil {
 		panic(err)
+	}
+
+	if s.VersionFile == "" {
+		s.VersionFile = ".version"
 	}
 
 	h := &Husky{
@@ -45,15 +48,17 @@ func (h *Husky) Init(ctx context.Context) {
 }
 
 func NewSpec() *Spec {
-	return &Spec{
+	s := &Spec{
 		Hooks:      map[string][]string{},
 		LintStaged: lintstaged.LintStaged{},
 		LintCommit: lintcommit.LintCommit{},
 	}
+	return s
 }
 
 type Spec struct {
-	Hooks      map[string][]string   `yaml:"hooks,omitempty"`
-	LintStaged lintstaged.LintStaged `yaml:"lint-staged,omitempty"`
-	LintCommit lintcommit.LintCommit `yaml:"lint-commit,omitempty"`
+	VersionFile string                `yaml:"version-file,omitempty"`
+	Hooks       map[string][]string   `yaml:"hooks,omitempty"`
+	LintStaged  lintstaged.LintStaged `yaml:"lint-staged,omitempty"`
+	LintCommit  lintcommit.LintCommit `yaml:"lint-commit,omitempty"`
 }

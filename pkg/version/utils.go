@@ -5,10 +5,10 @@ import (
 	"context"
 	"fmt"
 	"io"
-	"io/ioutil"
-	"os"
 	"os/exec"
 	"regexp"
+
+	"github.com/go-courier/husky/pkg/husky"
 
 	"github.com/go-courier/husky/pkg/scripts"
 	"github.com/go-courier/semver"
@@ -80,8 +80,8 @@ func GitPushFollowTags(ctx context.Context) error {
 	return scripts.RunScript(ctx, "git push --follow-tags")
 }
 
-func GitTagVersion(ctx context.Context, ver *semver.Version, skipCommit bool, skipTag bool) error {
-	_ = ioutil.WriteFile(".version", []byte(ver.String()), os.ModePerm)
+func GitTagVersion(ctx context.Context, ver *semver.Version, skipCommit bool, skipTag bool, versionFile string) error {
+	_ = husky.WriteFile(versionFile, []byte(ver.String()))
 
 	if !skipCommit {
 		_ = scripts.RunScript(ctx, fmt.Sprintf(`git add . && git commit --no-verify --message "chore(release): v%s"`, ver))
