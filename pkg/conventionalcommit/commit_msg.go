@@ -38,7 +38,7 @@ func ParseCommitMsg(commitMsg string) (*CommitMsg, error) {
 	commitHeader := commitLines[0]
 
 	if !reHeader.MatchString(commitHeader) {
-		return nil, fmt.Errorf("invalid header format `%s`, should be %s", commitHeader, reHeader.String())
+		return nil, fmt.Errorf("invalid header format `%s`, should be %s", strings.TrimSpace(commitHeader), reHeader.String())
 	}
 
 	groupNames := reHeader.SubexpNames()
