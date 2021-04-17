@@ -9,7 +9,10 @@ import (
 
 // https://www.conventionalcommits.org/en/v1.0.0/
 
-var reHeader = regexp.MustCompile(`^(?P<type>\w+)(\((?P<scope>[\w/.-]+)\))?(?P<breaking>!)?:( +)?(?P<header>.+)`)
+var (
+	TypesRegex  = regexp.MustCompile(`^(feat|fix|build|chore|ci|docs|perf|refactor|revert|style|test)$`)
+	HeaderRegex = regexp.MustCompile(`^(?P<type>\w+)(\((?P<scope>[\w/.-]+)\))?(?P<breaking>!)?:( +)?(?P<header>.+)`)
+)
 
 var Types = map[string]string{
 	"feat":     "Features",
@@ -25,27 +28,21 @@ var Types = map[string]string{
 	"test":     "",
 }
 
-func validateType(tpe string) error {
-	if _, ok := Types[tpe]; ok {
-		return nil
-	}
-	return fmt.Errorf("invalid type `%s`, see more https://www.conventionalcommits.org/en/v1.0.0", tpe)
-}
-
 func ParseCommitMsg(commitMsg string) (*CommitMsg, error) {
+
 	commitLines := strings.Split(commitMsg, "\n\n")
 
 	commitHeader := commitLines[0]
 
-	if !reHeader.MatchString(commitHeader) {
-		return nil, fmt.Errorf("invalid header format `%s`, should be %s", commitHeader, reHeader.String())
+	if !HeaderRegex.MatchString(commitHeader) {
+		return nil, fmt.Errorf("invalid header format `%s`, should be %s", commitHeader, HeaderRegex.String())
 	}
 
-	groupNames := reHeader.SubexpNames()
+	groupNames := HeaderRegex.SubexpNames()
 
 	c := &CommitMsg{}
 
-	for _, match := range reHeader.FindAllStringSubmatch(commitHeader, -1) {
+	for _, match := range HeaderRegex.FindAllStringSubmatch(commitHeader, -1) {
 		for groupIdx, value := range match {
 			name := groupNames[groupIdx]
 			switch name {
@@ -53,8 +50,8 @@ func ParseCommitMsg(commitMsg string) (*CommitMsg, error) {
 				c.BreakingChange = value == "!"
 			case "type":
 				c.Type = strings.TrimSpace(value)
-				if err := validateType(c.Type); err != nil {
-					return nil, err
+				if !TypesRegex.MatchString(c.Type) {
+					return nil, fmt.Errorf("invalid type `%s`, see more https://www.conventionalcommits.org/en/v1.0.0", c.Type)
 				}
 			case "scope":
 				c.Scope = strings.TrimSpace(value)
