@@ -3,7 +3,6 @@ package main
 import (
 	"context"
 	"flag"
-	"os"
 	"path"
 
 	"github.com/go-courier/husky/pkg/husky"
@@ -28,16 +27,4 @@ var CmdRoot = &cobra.Command{
 func init() {
 	flag.Parse()
 	CmdRoot.PersistentFlags().AddGoFlagSet(flag.CommandLine)
-	Init(projectRoot)
-}
-
-func Init(root string) {
-	githooks, _ := husky.ListGithookName(root)
-
-	for _, githook := range githooks {
-		_ = os.WriteFile(path.Join(root, ".git/hooks", githook), []byte(`#!/bin/sh
-
-husky hook $(basename "$0") $*
-`), os.ModePerm)
-	}
 }
