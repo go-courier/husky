@@ -15,4 +15,4 @@ lint-staged:
 lint-commit:
   email: "^(.+@gmail.com|.+@qq.com|.+@live.com)$"
   # types: "^(feat|fix|build|chore|ci|docs|perf|refactor|revert|style|test)$"
-  # format: "^(?P<type>\w+)(\((?P<scope>[\w/.-]+)\))?(?P<breaking>!)?:( +)?(?P<header>.+)"
+  # header: "^(?P<type>\w+)(\((?P<scope>[\w/.-]+)\))?(?P<breaking>!)?:( +)?(?P<header>.+)"
