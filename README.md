@@ -14,6 +14,12 @@ install
 go get -u github.com/go-courier/husky/cmd/husky
 ```
 
+install git hooks
+
+```
+husky init
+```
+
 ## Configuration `.husky.yaml`
 
 ```yaml

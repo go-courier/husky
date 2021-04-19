@@ -4,6 +4,7 @@ import (
 	"context"
 	"os"
 
+	"github.com/fatih/color"
 	"github.com/go-courier/husky/pkg/log"
 	"github.com/go-courier/husky/pkg/scripts"
 	"github.com/spf13/cobra"
@@ -25,7 +26,7 @@ var cmdHook = &cobra.Command{
 				ctx := log.WithLogger(l)(context.Background())
 
 				if err := scripts.RunScripts(ctx, ss); err != nil {
-					l.Error(err, "failed.")
+					color.Red(err.Error())
 					os.Exit(1)
 				}
 			}

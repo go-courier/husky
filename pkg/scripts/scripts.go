@@ -24,11 +24,6 @@ func RunScript(ctx context.Context, script string) (e error) {
 	logger := log.LoggerFromContext(ctx).WithName("RunScript")
 
 	logger.V(1).Info(script)
-	defer func() {
-		if e != nil {
-			logger.Error(e, "failed")
-		}
-	}()
 
 	sh, err := syntax.NewParser().Parse(strings.NewReader(script), "")
 	if err != nil {
