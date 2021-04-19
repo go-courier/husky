@@ -5,12 +5,16 @@ import (
 	"context"
 	"os"
 	"os/exec"
+	"regexp"
 
+	"github.com/go-courier/husky/pkg/conventionalcommit"
 	"github.com/go-courier/husky/pkg/log"
 )
 
 type LintCommit struct {
-	Email string `yaml:"email,omitempty"`
+	Email  string `yaml:"email,omitempty"`
+	Types  string `yaml:"types,omitempty"`
+	Header string `yaml:"header,omitempty"`
 }
 
 func (lintCommit LintCommit) NewLint(ctx context.Context) func() error {
@@ -20,6 +24,12 @@ func (lintCommit LintCommit) NewLint(ctx context.Context) func() error {
 
 	if lintCommit.Email != "" {
 		lintCommitEmail = CreateLintCommitEmail(lintCommit.Email)
+	}
+	if lintCommit.Header != "" {
+		conventionalcommit.HeaderRegex = regexp.MustCompile(lintCommit.Header)
+	}
+	if lintCommit.Types != "" {
+		conventionalcommit.TypesRegex = regexp.MustCompile(lintCommit.Types)
 	}
 
 	return func() error {

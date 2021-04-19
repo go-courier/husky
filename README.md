@@ -39,8 +39,11 @@ lint-staged:
 # commit msg rule only support conventionalcommits
 lint-commit:
   # could check if this exists
-  # regexp
   email: "^(.+@gmail.com|.+@qq.com)$"
+  # optional custom types check regex
+  types: "^(feat|fix|build|chore|ci|docs|perf|refactor|revert|style|test)$"
+  # optional header check regex
+  header: "^(?P<type>\w+)(\((?P<scope>[\w/.-]+)\))?(?P<breaking>!)?:( +)?(?P<header>.+)"
 ```
 
 Commit msg rule follow <https://www.conventionalcommits.org/en/v1.0.0/>
