@@ -5,6 +5,18 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
+# [1.7.0](https://github.com/go-courier/husky/compare/v1.6.0...v1.7.0)
+
+### Features
+
+* **feat** add options to extend commit format and types ([d482ee2](https://github.com/go-courier/husky/commit/d482ee2a9292f1989a7a530563be735969fcdef2))
+* **feat** improve command output ([cee0a79](https://github.com/go-courier/husky/commit/cee0a798733af33ed6d260da2fe932036905b3b5))
+* **feat** add init command ([1de23ef](https://github.com/go-courier/husky/commit/1de23ef1339ecf4529095d941f673efdb444f21d))
+* **feat** add options to extend commit format and types ([ba2b297](https://github.com/go-courier/husky/commit/ba2b2976a5503c9c45bf799941f45e58e781cd5e))
+* **feat** add options to extend commit format and types ([70488f4](https://github.com/go-courier/husky/commit/70488f498b4016f386cbfede2e3ce88d9f973912))
+
+
+
 # [1.6.0](https://github.com/go-courier/husky/compare/v1.5.4...v1.6.0)
 
 ### Features
