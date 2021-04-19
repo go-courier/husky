@@ -1,4 +1,4 @@
-version-file: version/version
+version-file: internal/version/version
 
 hooks:
   pre-commit:

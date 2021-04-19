@@ -7,7 +7,7 @@ import (
 
 	"github.com/go-courier/husky/pkg/husky"
 	"github.com/go-courier/husky/pkg/log"
-	"github.com/go-courier/husky/version"
+	"github.com/go-courier/husky/internal/version"
 	"github.com/go-logr/glogr"
 	"github.com/spf13/cobra"
 )
