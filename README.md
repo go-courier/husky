@@ -11,7 +11,7 @@ Husky.js like, but pure in golang
 install
 
 ```
-go get -u github.com/go-courier/husky/cmd/husky
+go install github.com/go-courier/husky/cmd/husky
 ```
 
 install git hooks
