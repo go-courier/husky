@@ -6,8 +6,8 @@ require (
 	github.com/davecgh/go-spew v1.1.1
 	github.com/fatih/color v1.13.0
 	github.com/go-courier/semver v1.0.1
-	github.com/go-logr/glogr v1.1.0
-	github.com/go-logr/logr v1.1.0
+	github.com/go-logr/glogr v1.2.2
+	github.com/go-logr/logr v1.2.2
 	github.com/gobwas/glob v0.2.3
 	github.com/onsi/gomega v1.16.0
 	github.com/pkg/errors v0.9.1
