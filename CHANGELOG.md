@@ -9,7 +9,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-* **feat** handle new custom hook post-version to upgrade version to package file ([b9e221f](https://github.com/go-courier/husky/commit/b9e221f6e232004ff37d1c57c71433841c5c3005))
+* **feat** handle new custom hook post-version to upgrade version to package file ([6084548](https://github.com/go-courier/husky/commit/608454868c6007f8d72311e00326343e8f71b754))
 
 
 
