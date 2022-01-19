@@ -2,14 +2,16 @@ package log
 
 import (
 	"context"
+	stdlog "log"
+	"os"
 
-	"github.com/go-logr/glogr"
 	"github.com/go-logr/logr"
+	"github.com/go-logr/stdr"
 )
 
 type contextKeyLogger int
 
-var Logger = glogr.New()
+var Logger = stdr.New(stdlog.New(os.Stderr, "[husky]", stdlog.LstdFlags))
 
 func WithLogger(logger logr.Logger) func(ctx context.Context) context.Context {
 	return func(ctx context.Context) context.Context {
