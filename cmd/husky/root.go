@@ -2,8 +2,6 @@ package main
 
 import (
 	"context"
-	"flag"
-	"path"
 
 	"github.com/go-courier/husky/internal/version"
 	"github.com/go-courier/husky/pkg/husky"
@@ -13,8 +11,9 @@ import (
 
 var (
 	logger      = log.Logger
+	loggerV     = 0
 	projectRoot = husky.ResolveGitRoot()
-	theHusky    = husky.HuskyFrom(log.WithLogger(logger)(context.Background()), path.Join(projectRoot, ".husky.yaml"))
+	theHusky    *husky.Husky
 )
 
 var CmdRoot = &cobra.Command{
@@ -24,6 +23,10 @@ var CmdRoot = &cobra.Command{
 }
 
 func init() {
-	flag.Parse()
-	CmdRoot.PersistentFlags().AddGoFlagSet(flag.CommandLine)
+	CmdRoot.PersistentFlags().IntVarP(&loggerV, "verbose", "v", 0, "log level")
+
+	cobra.OnInitialize(func() {
+		log.SetVerbosity(loggerV)
+		theHusky = husky.HuskyFrom(log.WithLogger(logger)(context.Background()), projectRoot)
+	})
 }

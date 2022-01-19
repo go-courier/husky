@@ -5,7 +5,16 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
+# [1.8.0](https://github.com/go-courier/husky/compare/v1.7.2...v1.8.0)
+
+### Features
+
+* **feat** handle new custom hook post-version to upgrade version to package file ([b9e221f](https://github.com/go-courier/husky/commit/b9e221f6e232004ff37d1c57c71433841c5c3005))
+
+
+
 # [1.7.2](https://github.com/go-courier/husky/compare/v1.7.1...v1.7.2)
+
 
 
 # [1.7.1](https://github.com/go-courier/husky/compare/v1.7.0...v1.7.1)

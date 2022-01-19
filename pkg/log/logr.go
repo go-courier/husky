@@ -11,7 +11,11 @@ import (
 
 type contextKeyLogger int
 
-var Logger = stdr.New(stdlog.New(os.Stderr, "[husky]", stdlog.LstdFlags))
+func SetVerbosity(v int) {
+	stdr.SetVerbosity(v)
+}
+
+var Logger = stdr.New(stdlog.New(os.Stderr, "[husky] ", stdlog.Ltime))
 
 func WithLogger(logger logr.Logger) func(ctx context.Context) context.Context {
 	return func(ctx context.Context) context.Context {

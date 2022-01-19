@@ -13,6 +13,9 @@ cover:
 install: build
 	mv ./bin/husky_$(GOOS)_$(GOARCH)/husky ${GOPATH}/bin/husky
 
+test.version: install
+	husky --verbose=10 version --skip-pull --skip-commit
+
 dep:
 	go get -u ./...
 	go get -t ./...

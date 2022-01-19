@@ -1,15 +1,29 @@
 package scripts
 
 import (
+	"bytes"
 	"context"
 	"os"
 	"strings"
+	"text/template"
 
 	"github.com/go-courier/husky/pkg/log"
 
 	"mvdan.cc/sh/v3/interp"
 	"mvdan.cc/sh/v3/syntax"
 )
+
+func ParesScriptTemplate(s string, data interface{}) (string, error) {
+	t, err := template.New("").Parse(s)
+	if err != nil {
+		return "", err
+	}
+	var buf = bytes.NewBuffer(nil)
+	if err := t.Execute(buf, data); err != nil {
+		return "", err
+	}
+	return buf.String(), nil
+}
 
 func RunScripts(ctx context.Context, scripts []string) error {
 	for i := range scripts {

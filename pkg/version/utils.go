@@ -83,13 +83,15 @@ func GitPushFollowTags(ctx context.Context) error {
 func GitTagVersion(ctx context.Context, ver *semver.Version, skipCommit bool, skipTag bool, versionFile string) error {
 	_ = husky.WriteFile(versionFile, []byte(ver.String()))
 
-	if !skipCommit {
-		_ = scripts.RunScript(ctx, fmt.Sprintf(`git add . && git commit --no-verify --message "chore(release): v%s"`, ver))
+	if skipCommit {
+		return nil
 	}
 
-	if !skipTag {
-		return scripts.RunScript(ctx, fmt.Sprintf(`git tag --force --annotate v%s --message "v%s"`, ver, ver))
+	_ = scripts.RunScript(ctx, fmt.Sprintf(`git add . && git commit --no-verify --message "chore(release): v%s"`, ver))
+
+	if skipTag {
+		return nil
 	}
 
-	return nil
+	return scripts.RunScript(ctx, fmt.Sprintf(`git tag --force --annotate v%s --message "v%s"`, ver, ver))
 }

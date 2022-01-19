@@ -4,6 +4,8 @@ import (
 	"context"
 	"os"
 
+	"github.com/go-courier/husky/pkg/scripts"
+
 	"github.com/go-courier/husky/pkg/log"
 	"github.com/go-courier/husky/pkg/version"
 	"github.com/spf13/cobra"
@@ -25,9 +27,27 @@ var cmdVersion = &cobra.Command{
 	Use:   "version",
 	Short: "auto version by conventional commit",
 	Run: func(cmd *cobra.Command, args []string) {
-		versionOpt.VersionFile = theHusky.VersionFile
+		ctx := log.WithLogger(logger.WithName(cmd.Use))(context.Background())
 
-		err := version.NewVersionAction(log.WithLogger(logger.WithName(cmd.Use))(context.Background()), versionOpt).Do()
+		versionOpt.VersionFile = theHusky.VersionFile
+		versionOpt.PostVersion = func(version string) error {
+			if ss, ok := theHusky.Hooks["post-version"]; ok {
+				for _, s := range ss {
+					parsed, err := scripts.ParesScriptTemplate(s, map[string]string{
+						"Version": version,
+					})
+					if err != nil {
+						return err
+					}
+					if err := scripts.RunScript(ctx, parsed); err != nil {
+						return err
+					}
+				}
+			}
+			return nil
+		}
+
+		err := version.NewVersionAction(ctx, versionOpt).Do()
 		if err != nil {
 			logger.Error(err, "")
 			os.Exit(1)
