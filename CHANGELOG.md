@@ -5,6 +5,14 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
+# [1.8.1](https://github.com/go-courier/husky/compare/v1.8.0...v1.8.1)
+
+### Bug Fixes
+
+* **fix** first version should start with 0.0.1 ([76ea600](https://github.com/go-courier/husky/commit/76ea600b20af50b5d649432c85de5744a593aa79))
+
+
+
 # [1.8.0](https://github.com/go-courier/husky/compare/v1.7.2...v1.8.0)
 
 ### Features
