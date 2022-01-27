@@ -36,7 +36,7 @@ func incr(v *semver.Version, incr verIncr) *semver.Version {
 func CalcNextVer(list []Commit, fromVersion *semver.Version) (*semver.Version, map[string][]*Commit) {
 	sections := map[string][]*Commit{}
 	verIncr := verIncrPatch
-	ver := semver.MustParseVersion("0.0.0")
+	ver := semver.MustParseVersion("0.0.1")
 
 	add := func(cm *Commit) {
 		sectionTitle := conventionalcommit.Types[cm.Type]
