@@ -13,7 +13,7 @@ jobs:
         with:
           go-version: '^1.17'
       - run: make cover
-      - uses: codecov/codecov-action@v2.1.0
+      - uses: codecov/codecov-action@v3.1.0
         with:
           file: ./coverage.txt
           fail_ci_if_error: true
