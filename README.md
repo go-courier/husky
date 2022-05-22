@@ -34,7 +34,7 @@ version-file = "internal/version/version"
 # after version calc,
 # with use the {{ .Version }} to upgrade other files.
 post-version = [
-    "sed -i -e 's/\"version\": \"[^\"]*\"/\"version\": \"{{ .Version }}\"/g' testdata/pacakge.json",
+    "sed -i -e 's/\"version\": \"[^\"]*\"/\"version\": \"{{ .Version }}\"/g' testdata/package.json",
     "sed -i -e 's/version: [^\\n]*/version: {{ .Version }}/g' testdata/pubspec.yaml"
 ]
 
