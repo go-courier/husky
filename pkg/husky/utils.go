@@ -13,19 +13,23 @@ func ResolveGitRoot() string {
 	return resolveGitRoot(cwd)
 }
 
-func resolveGitRoot(path string) string {
+func resolveGitRoot(path string, i int) string {
 	f, err := os.Lstat(filepath.Join(path, ".git"))
 	if err != nil {
 		if os.IsNotExist(err) {
-			return resolveGitRoot(filepath.Join(path, ".."))
+			if i > 10 {
+				log.Fatal("not a git repository (or any of the parent directories): .git")
+			}
+			return resolveGitRoot(filepath.Join(path, ".."), i+1)
 		}
-		panic(err)
+		log.Fatal(err)
 	}
 	if !f.IsDir() {
-		panic(fmt.Errorf(".git must be a directory"))
+		log.Fatal(".git must be a directory")
 	}
 	return path
 }
+
 
 func ListGithookName(root string) ([]string, error) {
 	githooks := make([]string, 0)
